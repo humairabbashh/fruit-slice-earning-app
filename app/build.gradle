@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.earningdecode.fruitslice'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.earningdecode.fruitslice'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    // Google Mobile Ads SDK (AdMob). Current stable version at time of writing.
+    // If Gradle ever cannot resolve this version, fall back to 23.6.0.
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+}
