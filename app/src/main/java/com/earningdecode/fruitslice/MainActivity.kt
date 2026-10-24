@@ -112,6 +112,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadInterstitial() {
+        // Don't start a second load while one is already running.
+        if (isLoadingInterstitial) return
         isLoadingInterstitial = true
         InterstitialAd.load(
             this,
@@ -140,8 +142,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     isLoadingInterstitial = false
                     interstitialAd = null
-                    // No retry here on purpose: the 2-minute timer will try
-                    // loading again on its next tick.
+                    // Slow connection: try again in 30 seconds instead of
+                    // waiting for the next 2-minute timer tick.
+                    handler.postDelayed({ loadInterstitial() }, 30000)
                 }
             }
         )
